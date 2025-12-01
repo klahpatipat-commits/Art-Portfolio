@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Your Name</title>
+
+  <!-- Base styles -->
+  <style>
+    /* ---------- CSS Variables (เปลี่ยนธีมง่าย) ---------- */
+    :root {
+      --bg-color: #fd5800ff;
+      --bg-elevated: #592204ff;
+      --text-color: #e5e7eb;
+      --text-muted: #a9a9a9ff;
+      --primary: #ffcb3aff;
+      --primary-soft: rgba(86, 68, 57, 0.15);
+      --accent: #def533ff;
+      --border-color: #efc333ff;
+      --radius-lg: 1.25rem;
+      --radius-md: 0.75rem;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 40px rgba(205, 102, 28, 0.75);
+      --max-width: 1100px;
+    }
+
+    /* ---------- Global Reset & Typography ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #d4771fff 0, #170902ff 45%);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ---------- Layout Helpers ---------- */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .section {
+      padding: 4.5rem 0;
+    }
+
+    .section__title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section__title span {
+      display: inline-block;
+      width: 30px;
+      height: 3px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .section__description {
+      max-width: 650px;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.98rem;
+    }
+
+    /* ---------- Header & Nav ---------- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.6));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+    }
+
+    .nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .nav__logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 20% 0, #e0f2fe 0, #0ea5e9 40%, #6366f1 70%);
+      display: grid;
+      place-items: center;
+      font-size: 0.9rem;
+      color: #0b1120;
+      font-weight: 800;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.4);
+    }
+
+    .nav__items {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.92rem;
+    }
+
+    .nav__link {
+      position: relative;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav__link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.3rem;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border-radius: 999px;
+      transition: width 0.2s ease;
+    }
+
+    .nav__link:hover {
+      color: var(--text-color);
+    }
+
+    .nav__link:hover::after {
+      width: 60%;
+    }
+
+    .nav__cta {
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid rgba(193, 104, 49, 0.92);
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: rgba(119, 77, 33, 0.9);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav__cta:hover {
+      border-color: var(--primary);
+      color: #e0f2fe;
+      box-shadow: 0 0 0 1px rgba(248, 152, 56, 0.3);
+    }
+
+    /* ---------- Hero Section ---------- */
+    .hero {
+      padding: 4.5rem 0 3rem;
+    }
+
+    .hero__inner {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.7fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero__pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.8rem 0.25rem 0.23rem;
+      border-radius: 999px;
+      background: rgba(42, 30, 15, 0.8);
+      border: 1px solid rgba(185, 125, 70, 0.4);
+      margin-bottom: 1.2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero__pill-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #f9fafb 0, #22c55e 40%, #16a34a 70%);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.35);
+    }
+
+    .hero__title {
+      font-size: clamp(2.3rem, 4vw, 2.9rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero__title span {
+      background: linear-gradient(to right, #e5e6ebff, #fce2a5ff);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero__subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 550px;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 0.7rem 1.4rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      white-space: nowrap;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border 0.15s ease;
+    }
+
+    .btn--primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #200d0bff;
+      box-shadow: 0 18px 40px rgba(248, 130, 56, 0.35);
+      font-weight: 600;
+    }
+
+    .btn--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 50px rgba(248, 146, 56, 0.5);
+    }
+
+    .btn--ghost {
+      background: rgba(42, 24, 15, 0.9);
+      color: var(--text-muted);
+      border: 1px solid rgba(184, 169, 148, 0.6);
+    }
+
+    .btn--ghost:hover {
+      border-color: var(--primary);
+      color: #e5e7eb;
+    }
+
+    .hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero__meta-item span {
+      display: block;
+      font-weight: 600;
+      color: #e5e7eb;
+      font-size: 0.95rem;
+    }
+
+    /* Hero Avatar / Card */
+    .hero-card {
+      background: radial-gradient(circle at top left, #372f1fff 0, #171302ff 65%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(193, 121, 50, 0.25);
+      padding: 1.3rem 1.3rem 1.5rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card__header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-card__avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 22px;
+      background: radial-gradient(circle at 0 0, #e5e7eb 0, #f88e38ff 40%, #f19963ff 65%, #2a190fff 80%);
+      border: 2px solid rgba(184, 174, 148, 0.4);
+    }
+
+    .hero-card__name {
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .hero-card__role {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-card__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(42, 24, 15, 0.85);
+      border: 1px solid rgba(184, 165, 148, 0.45);
+      margin-top: 0.35rem;
+    }
+
+    .hero-card__body {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-card__stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.7rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-card__stat {
+      background: rgba(42, 24, 15, 0.85);
+      border-radius: var(--radius-md);
+      padding: 0.55rem 0.7rem;
+      border: 1px solid rgba(184, 157, 148, 0.35);
+    }
+
+    .hero-card__stat-label {
+      color: var(--text-muted);
+    }
+
+    .hero-card__stat-value {
+      font-weight: 600;
+      margin-top: 0.1rem;
+    }
+
+    .hero-card__glow {
+      position: absolute;
+      inset: auto auto -120px auto;
+      right: -70px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(248, 133, 56, 0.4), transparent 70%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    /* ---------- About Section ---------- */
+    .about {
+      border-top: 1px solid rgba(184, 159, 148, 0.15);
+    }
+
+    .about__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.8fr);
+      gap: 2.5rem;
+    }
+
+    .about__highlights {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .about-card {
+      background: rgba(42, 29, 15, 0.9);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(184, 164, 148, 0.25);
+      padding: 1rem 1.1rem;
+      font-size: 0.9rem;
+    }
+
+    .about-card__label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .about-card__value {
+      font-weight: 600;
+    }
+
+    .about__bio {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .about__bio p + p {
+      margin-top: 0.9rem;
+    }
+
+    /* ---------- Skills Section ---------- */
+    .skills__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.9fr);
+      gap: 2.5rem;
+      align-items: flex-start;
+    }
+
+    .skills__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .skill-tag {
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(42, 26, 15, 0.9);
+      border: 1px solid rgba(184, 164, 148, 0.35);
+      font-size: 0.8rem;
+      color: #e5e7eb;
+    }
+
+    .skills__levels {
+      display: grid;
+      gap: 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .skill-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .skill-row__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .skill-row__bar {
+      width: 100%;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(125, 72, 37, 0.85);
+      overflow: hidden;
+      border: 1px solid rgba(42, 24, 15, 0.9);
+    }
+
+    .skill-row__bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      width: 70%; /* default */
+    }
+
+    /* ---------- Projects Section ---------- */
+    .projects {
+      border-top: 1px solid rgba(184, 167, 148, 0.15);
+    }
+
+    .projects__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: rgba(42, 23, 15, 0.92);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(184, 161, 148, 0.3);
+      padding: 1rem;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      transition: transform 0.15s ease, border 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      box-shadow: 0 18px 35px rgba(42, 29, 15, 0.8);
+    }
+
+    .project-card__badge {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .project-card__title {
+      font-weight: 600;
+    }
+
+    .project-card__desc {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .project-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+    }
+
+    .project-card__tag {
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(184, 164, 148, 0.4);
+      color: var(--text-muted);
+    }
+
+    .project-card__links {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .project-card__link {
+      color: #fdd3baff;
+    }
+
+    /* ---------- Contact Section ---------- */
+    .contact {
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .contact__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 2.4fr);
+      gap: 2.5rem;
+    }
+
+    .contact__info-item {
+      font-size: 0.92rem;
+      margin-bottom: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .contact__info-item span {
+      display: block;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .contact__socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    .social-pill {
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(184, 159, 148, 0.45);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: border 0.15s ease, color 0.15s ease, background 0.15s ease;
+    }
+
+    .social-pill:hover {
+      border-color: var(--primary);
+      color: #e0f2fe;
+      background: rgba(42, 24, 15, 0.9);
+    }
+
+    .contact__form {
+      background: rgba(42, 24, 15, 0.92);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(184, 164, 148, 0.35);
+      padding: 1.3rem 1.4rem 1.4rem;
+      font-size: 0.9rem;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .form-group {
+      width: 100%;
+      margin-bottom: 0.9rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      border-radius: 0.7rem;
+      border: 1px solid rgba(184, 160, 148, 0.5);
+      background: rgba(42, 24, 15, 0.9);
+      padding: 0.6rem 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      resize: vertical;
+      min-height: 42px;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(255, 121, 11, 0.55);
+      background: #020617;
+    }
+
+    .form-helper {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .form-submit-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-left: 0.3rem;
+    }
+
+    /* ---------- Footer ---------- */
+    .site-footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+      padding: 1.6rem 0 2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .site-footer__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .site-footer__links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .hero__inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .about__grid,
+      .skills__grid,
+      .projects__grid,
+      .contact__grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .projects__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav__items {
+        display: none; /* base version ยังไม่ทำ hamburger menu เพื่อความง่าย */
+      }
+
+      .hero {
+        padding-top: 3rem;
+      }
+
+      .projects__grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .form-row {
+        flex-direction: column;
+      }
+
+      .section {
+        padding: 3.3rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a href="#top" class="nav__brand">
+          <div class="nav__logo">Y</div>
+          <span>Your Name</span>
+        </a>
+        <div class="nav__items">
+          <a href="#about" class="nav__link">About</a>
+          <a href="#skills" class="nav__link">Skills</a>
+          <a href="#projects" class="nav__link">Projects</a>
+          <a href="#contact" class="nav__link">Contact</a>
+          <a href="#contact" class="nav__cta">Hire Me</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <main id="top">
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <div class="hero__pill">
+            <div class="hero__pill-dot"></div>
+            <span>Available for freelance & remote work</span>
+          </div>
+          <h1 class="hero__title">
+            สวัสดี, ผมคือ <span>Your Name</span>
+          </h1>
+          <p class="hero__subtitle">
+            Frontend / Web Developer ที่เน้นทำเว็บเรียบง่าย ใช้งานง่าย และโหลดเร็ว
+            เน้นประสบการณ์ผู้ใช้ (UX) และการออกแบบที่สวยแต่ไม่รกตา
+          </p>
+          <div class="hero__actions">
+            <a href="#projects" class="btn btn--primary">
+              ดูผลงาน
+              <span>↗</span>
+            </a>
+            <a href="#contact" class="btn btn--ghost">
+              ติดต่อผม
+            </a>
+          </div>
+          <div class="hero__meta">
+            <div class="hero__meta-item">
+              <span>3+ ปี</span>
+              ประสบการณ์ทำเว็บ
+            </div>
+            <div class="hero__meta-item">
+              <span>10+ โปรเจกต์</span>
+              งานจริง/ฝึกทำ
+            </div>
+            <div class="hero__meta-item">
+              <span>Frontend</span>
+              React • Vue • TailwindCSS
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Side Card (Avatar / Quick Info) -->
+        <aside class="hero-card">
+          <div class="hero-card__header">
+            <!-- TODO: เปลี่ยนเป็นรูปโปรไฟล์ของตัวเอง (ใช้ <img> แทน div นี้) -->
+            <div class="hero-card__avatar"></div>
+
+            <div>
+              <div class="hero-card__name">Your Name</div>
+              <div class="hero-card__role">Frontend Developer</div>
+              <div class="hero-card__tag">
+                <span>Bangkok, Thailand</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card__body">
+            พร้อมช่วยคุณสร้างเว็บ portfolio, หน้า landing page
+            หรือเว็บไซต์บริษัทขนาดเล็ก ด้วยโค้ดที่ดูแลต่อได้ง่าย
+          </div>
+
+          <div class="hero-card__stats">
+            <div class="hero-card__stat">
+              <div class="hero-card__stat-label">ตอบกลับภายใน</div>
+              <div class="hero-card__stat-value">24 ชั่วโมง</div>
+            </div>
+            <div class="hero-card__stat">
+              <div class="hero-card__stat-label">โซนเวลา</div>
+              <div class="hero-card__stat-value">GMT+7 (Bangkok)</div>
+            </div>
+            <div class="hero-card__stat">
+              <div class="hero-card__stat-label">โหมดงาน</div>
+              <div class="hero-card__stat-value">Freelance / Remote</div>
+            </div>
+          </div>
+
+          <div class="hero-card__glow"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section id="about" class="section about">
+      <div class="container">
+        <h2 class="section__title">
+          <span></span>
+          About
+        </h2>
+        <p class="section__description">
+          ส่วนนี้ไว้เล่าเกี่ยวกับตัวคุณ ประสบการณ์ จุดเริ่มต้นในการเขียนโค้ด
+          หรือแนวคิดในการทำงานของคุณ แนะนำให้เขียนเป็นภาษาที่เป็นตัวเอง
+          อ่านแล้วดูจริงใจและน่าเข้าหา
+        </p>
+
+        <div class="about__grid">
+          <div class="about__bio">
+            <p>
+              ผมเริ่มเขียนเว็บไซต์จากการอยากมีหน้า portfolio ของตัวเอง
+              จากนั้นก็เริ่มสนใจเรื่อง UI / UX และ Performance ของเว็บ
+              ทำให้ชอบปรับปรุงรายละเอียดเล็กๆ น้อยๆ ให้เว็บดูดีขึ้น
+            </p>
+            <p>
+              ตอนนี้สนใจเป็นพิเศษเกี่ยวกับการทำเว็บที่มีดีไซน์ทันสมัย
+              ใช้เทคโนโลยีใหม่ แต่ยังคงโหลดเร็ว และแก้โค้ดต่อได้ง่าย
+              ไม่ซับซ้อนเกินไปสำหรับทีมเล็กๆ หรือฟรีแลนซ์
+            </p>
+            <p>
+              นอกจากการเขียนโค้ด ผมชอบออกแบบ layout, system สี, และ component เล็กๆ
+              ที่นำกลับมาใช้ซ้ำได้ ทำให้การทำโปรเจกต์ใหม่ๆ เร็วขึ้นมาก
+            </p>
+          </div>
+
+          <div class="about__highlights">
+            <div class="about-card">
+              <div class="about-card__label">ถนัด</div>
+              <div class="about-card__value">
+                HTML • CSS (Flex / Grid) • JavaScript • Responsive Design
+              </div>
+            </div>
+            <div class="about-card">
+              <div class="about-card__label">เคยใช้</div>
+              <div class="about-card__value">
+                React, Next.js, TailwindCSS, Git, Figma
+              </div>
+            </div>
+            <div class="about-card">
+              <div class="about-card__label">โฟกัสตอนนี้</div>
+              <div class="about-card__value">
+                การออกแบบ component ที่ reusable และ maintainable
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SKILLS ========== -->
+    <section id="skills" class="section">
+      <div class="container">
+        <h2 class="section__title">
+          <span></span>
+          Skills
+        </h2>
+        <p class="section__description">
+          ทักษะที่ใช้งานจริงทั้งในโปรเจกต์ส่วนตัว และงานที่ทำให้ลูกค้า
+          คุณสามารถเพิ่ม / ลบ หรือจัดกลุ่มใหม่ให้ตรงกับแนวทางของตัวเองได้
+        </p>
+
+        <div class="skills__grid">
+          <div>
+            <h3 style="font-size: 1rem; margin-bottom: 0.75rem;">Tech Stack</h3>
+            <div class="skills__tags">
+              <span class="skill-tag">HTML5</span>
+              <span class="skill-tag">CSS3 / SCSS</span>
+              <span class="skill-tag">Responsive Design</span>
+              <span class="skill-tag">JavaScript (ES6+)</span>
+              <span class="skill-tag">React (พื้นฐาน)</span>
+              <span class="skill-tag">Git / GitHub</span>
+              <span class="skill-tag">Figma (UI Design)</span>
+            </div>
+          </div>
+
+          <div>
+            <h3 style="font-size: 1rem; margin-bottom: 0.75rem;">ระดับทักษะ</h3>
+            <div class="skills__levels">
+              <!-- ตัวอย่าง: ปรับ width ใน .skill-row__bar-fill ตามความมั่นใจของคุณ -->
+              <div class="skill-row">
+                <div class="skill-row__header">
+                  <span>HTML & Semantic Markup</span>
+                  <span>90%</span>
+                </div>
+                <div class="skill-row__bar">
+                  <div class="skill-row__bar-fill" style="width: 90%;"></div>
+                </div>
+              </div>
+
+              <div class="skill-row">
+                <div class="skill-row__header">
+                  <span>CSS (Layout / Animation)</span>
+                  <span>85%</span>
+                </div>
+                <div class="skill-row__bar">
+                  <div class="skill-row__bar-fill" style="width: 85%;"></div>
+                </div>
+              </div>
+
+              <div class="skill-row">
+                <div class="skill-row__header">
+                  <span>JavaScript (พื้นฐาน)</span>
+                  <span>70%</span>
+                </div>
+                <div class="skill-row__bar">
+                  <div class="skill-row__bar-fill" style="width: 70%;"></div>
+                </div>
+              </div>
+
+              <div class="skill-row">
+                <div class="skill-row__header">
+                  <span>UI Design / Figma</span>
+                  <span>65%</span>
+                </div>
+                <div class="skill-row__bar">
+                  <div class="skill-row__bar-fill" style="width: 65%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROJECTS ========== -->
+    <section id="projects" class="section projects">
+      <div class="container">
+        <h2 class="section__title">
+          <span></span>
+          Projects
+        </h2>
+        <p class="section__description">
+          รวมผลงานที่คุณอยากโชว์ สามารถใส่ได้ทั้งงานจริงที่ทำให้ลูกค้า
+          โปรเจกต์ส่วนตัว หรือ side project ที่ทำเพื่อทดลองไอเดีย
+        </p>
+
+        <div class="projects__grid">
+          <!-- Project 1 -->
+          <article class="project-card">
+            <div class="project-card__badge">2024 • Web Portfolio</div>
+            <h3 class="project-card__title">Personal Portfolio v2</h3>
+            <p class="project-card__desc">
+              เว็บไซต์ portfolio แบบ single-page สไตล์ modern dark
+              เน้นการอ่านง่าย และมีโครงสร้างโค้ดที่ดูแลต่อได้ไม่ยาก
+            </p>
+            <div class="project-card__tags">
+              <span class="project-card__tag">HTML</span>
+              <span class="project-card__tag">CSS Grid</span>
+              <span class="project-card__tag">Responsive</span>
+            </div>
+            <div class="project-card__links">
+              <!-- TODO: เปลี่ยน # เป็นลิงก์จริง -->
+              <a href="#" class="project-card__link">Live Demo</a>
+              <a href="#" class="project-card__link">GitHub</a>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card">
+            <div class="project-card__badge">2023 • Landing Page</div>
+            <h3 class="project-card__title">Startup Landing Page</h3>
+            <p class="project-card__desc">
+              หน้า landing page สำหรับ startup ขนาดเล็ก เน้น conversion
+              และการออกแบบส่วน Hero ให้ดึงสายตา
+            </p>
+            <div class="project-card__tags">
+              <span class="project-card__tag">HTML</span>
+              <span class="project-card__tag">CSS Flexbox</span>
+              <span class="project-card__tag">UI Design</span>
+            </div>
+            <div class="project-card__links">
+              <a href="#" class="project-card__link">Live Demo</a>
+              <a href="#" class="project-card__link">GitHub</a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card">
+            <div class="project-card__badge">2023 • Component Library</div>
+            <h3 class="project-card__title">Mini UI Components</h3>
+            <p class="project-card__desc">
+              ชุด component เล็กๆ เช่น card, button, badge ที่ใช้ซ้ำได้
+              ช่วยให้เริ่มโปรเจกต์ใหม่เร็วขึ้น
+            </p>
+            <div class="project-card__tags">
+              <span class="project-card__tag">Design System</span>
+              <span class="project-card__tag">Reusable</span>
+              <span class="project-card__tag">UI Components</span>
+            </div>
+            <div class="project-card__links">
+              <a href="#" class="project-card__link">Live Demo</a>
+              <a href="#" class="project-card__link">GitHub</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2 class="section__title">
+          <span></span>
+          Contact
+        </h2>
+        <p class="section__description">
+          ถ้าสนใจร่วมงาน หรืออยากคุยไอเดียโปรเจกต์ใหม่ๆ
+          สามารถติดต่อได้ตามข้อมูลด้านล่าง
+          หรือกรอกแบบฟอร์มแล้วผมจะตอบกลับให้เร็วที่สุด
+        </p>
+
+        <div class="contact__grid">
+          <div>
+            <!-- TODO: เปลี่ยนข้อมูลการติดต่อให้เป็นของคุณเอง -->
+            <div class="contact__info-item">
+              <span>Email</span>
+              your.email@example.com
+            </div>
+            <div class="contact__info-item">
+              <span>Location</span>
+              Bangkok, Thailand (Open to Remote)
+            </div>
+            <div class="contact__info-item">
+              <span>Freelance</span>
+              Available for new project
+            </div>
+
+            <div class="contact__socials">
+              <!-- TODO: เปลี่ยนลิงก์ social ให้เป็นของคุณ -->
+              <a href="#" class="social-pill">GitHub</a>
+              <a href="#" class="social-pill">LinkedIn</a>
+              <a href="#" class="social-pill">Twitter</a>
+              <a href="#" class="social-pill">Behance / Dribbble</a>
+            </div>
+          </div>
+
+          <div>
+            <!-- หมายเหตุ: form นี้เป็นตัวอย่าง ไม่มี backend ถ้าอยากให้ส่งอีเมลได้จริง สามารถใช้ action="mailto:..." หรือใช้ backend ภายหลัง -->
+            <form class="contact__form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="name">ชื่อของคุณ</label>
+                  <input
+                    type="text"
+                    id="name"
+                    class="form-input"
+                    placeholder="เช่น คุณเอ, คุณบี"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="email">อีเมล</label>
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-input"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="subject">หัวข้อ</label>
+                <input
+                  type="text"
+                  id="subject"
+                  class="form-input"
+                  placeholder="ต้องการทำเว็บประเภทไหน หรือสอบถามเรื่องอะไร"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="message">รายละเอียด</label>
+                <textarea
+                  id="message"
+                  class="form-textarea"
+                  rows="4"
+                  placeholder="เล่าโจทย์คร่าวๆ งบประมาณ หรือ timeline ที่ต้องการ (ถ้ามี)..."
+                ></textarea>
+              </div>
+
+              <div class="form-helper">
+                * ตัวอย่างฟอร์ม (ยังไม่ผูกกับระบบส่งอีเมลจริง)
+              </div>
+
+              <button type="submit" class="btn btn--primary">
+                ส่งข้อความ
+              </button>
+              <span class="form-submit-note">หรือส่งอีเมลหาผมโดยตรงก็ได้ครับ</span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div>© <span id="year"></span> Your Name. All rights reserved.</div>
+      <div class="site-footer__links">
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Optional JS เล็กน้อย แค่ตั้งค่า ปีปัจจุบันใน footer -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
